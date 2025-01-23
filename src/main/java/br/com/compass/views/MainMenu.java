@@ -1,0 +1,39 @@
+package br.com.compass.views;
+
+import java.util.Scanner;
+
+import static br.com.compass.views.BankMenu.bankMenu;
+
+public class MainMenu {
+
+    public static void mainMenu(Scanner scanner) {
+        boolean running = true;
+
+        while (running) {
+            System.out.println("========= Main Menu =========");
+            System.out.println("|| 1. Login                ||");
+            System.out.println("|| 2. Account Opening      ||");
+            System.out.println("|| 0. Exit                 ||");
+            System.out.println("=============================");
+            System.out.print("Choose an option: ");
+
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    bankMenu(scanner);
+                    return;
+                case 2:
+                    // ToDo...
+                    System.out.println("Account Opening.");
+                    break;
+                case 0:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid option! Please try again.");
+            }
+        }
+    }
+
+}
