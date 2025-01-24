@@ -14,9 +14,4 @@ public class App {
         scanner.close();
         System.out.println("Application closed");
     }
-
-
-
-
-
 }
