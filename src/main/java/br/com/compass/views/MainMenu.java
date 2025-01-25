@@ -3,10 +3,12 @@ package br.com.compass.views;
 import java.util.Scanner;
 
 import static br.com.compass.views.BankMenu.bankMenu;
+import static br.com.compass.views.LoginMenu.loginMenu;
 
 public class MainMenu {
 
-    public static void mainMenu(Scanner scanner) {
+    public static void mainMenu() {
+        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
@@ -21,7 +23,7 @@ public class MainMenu {
 
             switch (option) {
                 case 1:
-                    bankMenu(scanner);
+                    loginMenu();
                     return;
                 case 2:
                     // ToDo...

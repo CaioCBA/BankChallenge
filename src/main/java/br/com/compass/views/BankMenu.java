@@ -1,12 +1,19 @@
 package br.com.compass.views;
 
+import br.com.compass.entities.Account;
+
 import java.util.Scanner;
+
+import static br.com.compass.views.MainMenu.mainMenu;
 
 public class BankMenu {
 
-    public static void bankMenu(Scanner scanner) {
+    public static void bankMenu(Account acc, String cpf) {
+        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
+
+        System.out.println("\nWelcome, " + acc.getName());
         while (running) {
             System.out.println("========= Bank Menu =========");
             System.out.println("|| 1. Deposit              ||");
@@ -43,9 +50,10 @@ public class BankMenu {
                     break;
                 case 0:
                     // ToDo...
-                    System.out.println("Exiting...");
+                    System.out.println("Logging out...");
                     running = false;
-                    return;
+                    mainMenu();
+                    break;
                 default:
                     System.out.println("Invalid option! Please try again.");
             }
