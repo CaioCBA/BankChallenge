@@ -29,18 +29,13 @@ public class Account implements Serializable {
     @Column(name = "phone_number", unique = true, nullable = false)
     private String phone;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     @Column(name = "account_type", nullable = false)
     private Integer accountType;
 
     public Account() {}
-
-    public Account(String name, LocalDate birthDate,String cpf, String phone, AccountType accountType) {
-        this.name = name;
-        this.birthDate = birthDate;
-        this.cpf = cpf;
-        this.phone = phone;
-        setAccountType(accountType);
-    }
 
     public Long getId() {
         return id;
@@ -81,6 +76,10 @@ public class Account implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 
     public AccountType getAccountType() {
         return AccountType.valueOf(accountType);

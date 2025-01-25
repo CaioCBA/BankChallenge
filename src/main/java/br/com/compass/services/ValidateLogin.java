@@ -4,7 +4,6 @@ import br.com.compass.controllers.ConnectionFactory;
 import br.com.compass.entities.Account;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 
 public class ValidateLogin {
 

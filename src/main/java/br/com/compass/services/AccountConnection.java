@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 public class AccountConnection {
 
-    public Account save(Account account) {
+    public void save(Account account) {
 
         EntityManager em = new ConnectionFactory().getConnection();
 
@@ -21,7 +21,6 @@ public class AccountConnection {
         } finally {
             em.close();
         }
-        return account;
     }
 
 }

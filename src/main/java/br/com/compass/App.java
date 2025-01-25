@@ -9,7 +9,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        mainMenu(scanner);
+        mainMenu();
 
         scanner.close();
         System.out.println("Application closed");
