@@ -2,11 +2,9 @@ package br.com.compass.services;
 
 import br.com.compass.controllers.ConnectionFactory;
 import br.com.compass.entities.Account;
-
 import javax.persistence.EntityManager;
 
 public class ValidateLogin {
-
     public static Account validateLogin(String cpf, String password) {
         EntityManager em = new ConnectionFactory().getConnection();
 
@@ -20,7 +18,6 @@ public class ValidateLogin {
         }finally {
             em.close();
         }
-
         return null;
     }
 }

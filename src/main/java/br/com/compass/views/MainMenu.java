@@ -1,12 +1,10 @@
 package br.com.compass.views;
 
 import java.util.Scanner;
-
 import static br.com.compass.views.AccountCreationMenu.accountCreationMenu;
 import static br.com.compass.views.LoginMenu.loginMenu;
 
 public class MainMenu {
-
     public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -37,5 +35,4 @@ public class MainMenu {
         }
         scanner.close();
     }
-
 }

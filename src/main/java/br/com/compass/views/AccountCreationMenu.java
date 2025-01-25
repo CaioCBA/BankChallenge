@@ -3,7 +3,6 @@ package br.com.compass.views;
 import br.com.compass.entities.Account;
 import br.com.compass.entities.enums.AccountType;
 import br.com.compass.services.AccountServices;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -12,16 +11,16 @@ import java.util.Scanner;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class AccountCreationMenu {
-
     public static void accountCreationMenu() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
-            System.out.println("========= Account Creation Menu =========");
+            System.out.println("\n========= Account Creation Menu =========");
             System.out.println("|| 1. Open Account                      ||");
             System.out.println("|| 0. Go back                           ||");
             System.out.println("=========================================");
+            System.out.print("Choose an option: ");
 
             int op = scanner.nextInt();
             scanner.nextLine();
@@ -32,7 +31,7 @@ public class AccountCreationMenu {
                     AccountServices conn = new AccountServices();
                     Account acc = new Account();
 
-                    System.out.println("========= Account Creation Menu =========");
+                    System.out.println("\n========= Account Creation Menu =========");
                     System.out.print("Type your name: ");
                     String name = scanner.nextLine();
                     acc.setName(name);
@@ -89,7 +88,5 @@ public class AccountCreationMenu {
             }
         }
         scanner.close();
-
     }
-
 }

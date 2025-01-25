@@ -2,7 +2,6 @@ package br.com.compass.entities;
 
 import br.com.compass.entities.enums.AccountType;
 import javax.persistence.*;
-
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -34,6 +33,9 @@ public class Account implements Serializable {
 
     @Column(name = "account_type", nullable = false)
     private Integer accountType;
+
+    @Column(name = "total_balance")
+    private Double totalBalance = 0.0;
 
     public Account() {}
 
@@ -81,6 +83,10 @@ public class Account implements Serializable {
 
     public void setPassword(String password) { this.password = password; }
 
+    public Double getTotalBalance() { return totalBalance; }
+
+    public void setTotalBalance(Double totalBalance) { this.totalBalance = totalBalance; }
+
     public AccountType getAccountType() {
         return AccountType.valueOf(accountType);
     }
@@ -104,5 +110,3 @@ public class Account implements Serializable {
     }
 
 }
-
-
