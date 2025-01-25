@@ -2,7 +2,7 @@ package br.com.compass.views;
 
 import java.util.Scanner;
 
-import static br.com.compass.views.BankMenu.bankMenu;
+import static br.com.compass.views.AccountCreationMenu.accountCreationMenu;
 import static br.com.compass.views.LoginMenu.loginMenu;
 
 public class MainMenu {
@@ -26,9 +26,8 @@ public class MainMenu {
                     loginMenu();
                     return;
                 case 2:
-                    // ToDo...
-                    System.out.println("Account Opening.");
-                    break;
+                    accountCreationMenu();
+                    return;
                 case 0:
                     running = false;
                     break;
@@ -36,6 +35,7 @@ public class MainMenu {
                     System.out.println("Invalid option! Please try again.");
             }
         }
+        scanner.close();
     }
 
 }
