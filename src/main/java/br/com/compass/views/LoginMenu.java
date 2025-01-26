@@ -1,6 +1,6 @@
 package br.com.compass.views;
 
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
 import br.com.compass.services.ValidateLogin;
 import java.util.Scanner;
 import static br.com.compass.views.BankMenu.bankMenu;

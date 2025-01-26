@@ -1,6 +1,6 @@
 package br.com.compass.views;
 
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
 import br.com.compass.entities.enums.AccountType;
 import br.com.compass.services.AccountServices;
 import java.time.LocalDate;
@@ -46,7 +46,7 @@ public class AccountCreationMenu {
 
                     System.out.print("\nType your phone number: ");
                     String phone = scanner.nextLine();
-                    acc.setPhone(phone);
+                    acc.setPhone_number(phone);
 
                     System.out.print("\nType your birth date (yyyy-mm-dd): ");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -63,14 +63,14 @@ public class AccountCreationMenu {
                     }
 
                     System.out.println("Enter your account type: ");
-                    System.out.println("|| 1. Salary Account                   ||");
-                    System.out.println("|| 2. Savings Account                  ||");
-                    System.out.println("|| 3. Checking Account                 ||");
+                    System.out.println("|| 1. Payments Account                   ||");
+                    System.out.println("|| 2. Savings Account                    ||");
+                    System.out.println("|| 3. Checking Account                   ||");
                     int op_tc = scanner.nextInt();
                     scanner.nextLine();
 
                     if (op_tc == 1) {
-                        acc.setAccountType(AccountType.SALARY_ACCOUNT);
+                        acc.setAccountType(AccountType.PAYMENTS_ACCOUNT);
                     } else if (op_tc == 2) {
                         acc.setAccountType(AccountType.SAVINGS_ACCOUNT);
                     } else if (op_tc == 3) {

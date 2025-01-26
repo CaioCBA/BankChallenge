@@ -1,7 +1,7 @@
 package br.com.compass.services;
 
 import br.com.compass.controllers.ConnectionFactory;
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
 import javax.persistence.EntityManager;
 
 public class ValidateLogin {

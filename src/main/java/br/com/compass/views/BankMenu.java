@@ -1,10 +1,13 @@
 package br.com.compass.views;
 
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
+import br.com.compass.entities.models.Transactions;
 import br.com.compass.services.AccountServices;
-import br.com.compass.services.TransferServices;
+import br.com.compass.services.BankStatementServices;
+import br.com.compass.services.MonetaryServices;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import static br.com.compass.views.MainMenu.mainMenu;
 
@@ -97,12 +100,11 @@ public class BankMenu {
                             scanner.nextLine();
                         }
                     }
-                    TransferServices.transfer(cpf, cpfTransfer, amount);
+                    MonetaryServices.transfer(cpf, cpfTransfer, amount);
 
                     break;
                 case 5:
-                    // ToDo...
-                    System.out.println("Bank Statement.");
+                    List<Transactions> transactionsList = BankStatementServices.bankStatement(cpf);
                     break;
                 case 0:
                     // ToDo...

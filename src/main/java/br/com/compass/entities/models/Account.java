@@ -1,4 +1,4 @@
-package br.com.compass.entities;
+package br.com.compass.entities.models;
 
 import br.com.compass.entities.enums.AccountType;
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class Account implements Serializable {
     private String cpf;
 
     @Column(name = "phone_number", unique = true, nullable = false)
-    private String phone;
+    private String phone_number;
 
     @Column(name = "password", nullable = false)
     private String password;
@@ -71,12 +71,12 @@ public class Account implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone_number(String phone) {
+        this.phone_number = phone;
     }
 
     public String getPassword() { return password; }
