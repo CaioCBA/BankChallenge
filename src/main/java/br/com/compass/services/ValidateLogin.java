@@ -14,7 +14,7 @@ public class ValidateLogin {
 
 
         }catch (Exception e) {
-            System.out.println("Error validating login" + e.getMessage());
+            System.out.println("Error validating login: " + e.getMessage());
         }finally {
             em.close();
         }

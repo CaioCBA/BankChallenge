@@ -31,6 +31,7 @@ public class MainMenu {
                     break;
                 default:
                     System.out.println("Invalid option! Please try again.");
+                    break;
             }
         }
         scanner.close();
