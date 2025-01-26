@@ -27,6 +27,9 @@ public class Transactions implements Serializable {
     @Column(name = "amount", nullable = false)
     private Double amount;
 
+    @Column(name = "account_cpf")
+    private String accountCpf;
+
     @Column(name = "recipient_cpf")
     private String recipientCpf;
 
@@ -35,10 +38,11 @@ public class Transactions implements Serializable {
 
     public Transactions() {}
 
-    public Transactions(Account account, Integer transactionType, Double amount, String recipientCpf) {
+    public Transactions(Account account, Integer transactionType, Double amount, String accountCpf, String recipientCpf) {
         this.account = account;
         this.transactionType = transactionType;
         this.amount = amount;
+        this.accountCpf = accountCpf;
         this.recipientCpf = recipientCpf;
         this.transactionDate = LocalDateTime.now();
     }
@@ -76,6 +80,12 @@ public class Transactions implements Serializable {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+
+    public java.lang.String getAccountCpf() {
+        return accountCpf;
+    }
+
+    public void setAccountCpf(java.lang.String senderCpf) {}
 
     public String getRecipientCpf() {
         return recipientCpf;

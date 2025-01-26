@@ -12,7 +12,7 @@ public class LoginMenu {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while(running) {
-            System.out.println("========= Login Menu =========");
+            System.out.println("\n========= Login Menu =========");
             System.out.println("Type your CPF: ");
             String cpf = scanner.nextLine();
 

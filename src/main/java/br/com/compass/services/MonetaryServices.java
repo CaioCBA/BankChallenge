@@ -22,7 +22,7 @@ public class MonetaryServices {
 
             em.merge(acc);
 
-            Transactions depositTransaction = new Transactions(acc, 1, amount, cpf);
+            Transactions depositTransaction = new Transactions(acc, 1, amount, cpf, null);
             em.persist(depositTransaction);
 
             em.getTransaction().commit();
@@ -52,7 +52,7 @@ public class MonetaryServices {
 
             em.merge(acc);
 
-            Transactions transaction = new Transactions(acc, 2, amount, cpf);
+            Transactions transaction = new Transactions(acc, 2, amount, cpf, null);
             em.persist(transaction);
 
             em.getTransaction().commit();
@@ -91,8 +91,8 @@ public class MonetaryServices {
             em.merge(fromAccount);
             em.merge(toAccount);
 
-            Transactions senderTransaction = new Transactions(fromAccount, 3, totalBalance, fromAccountCpf);
-            Transactions recipientTransaction = new Transactions(fromAccount, 4, totalBalance, toAccountCpf);
+            Transactions senderTransaction = new Transactions(fromAccount, 3, totalBalance, fromAccountCpf, toAccountCpf);
+            Transactions recipientTransaction = new Transactions(toAccount, 4, totalBalance, toAccountCpf, fromAccountCpf);
             em.persist(senderTransaction);
             em.persist(recipientTransaction);
 

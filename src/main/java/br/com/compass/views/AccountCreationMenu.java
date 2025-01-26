@@ -1,13 +1,17 @@
 package br.com.compass.views;
 
+import br.com.compass.controllers.ConnectionFactory;
 import br.com.compass.entities.models.Account;
 import br.com.compass.entities.enums.AccountType;
 import br.com.compass.services.AccountServices;
+
+import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+import static br.com.compass.services.AccountServices.fieldAlreadyInDatabase;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class AccountCreationMenu {
@@ -30,6 +34,7 @@ public class AccountCreationMenu {
                 case 1:
                     AccountServices conn = new AccountServices();
                     Account acc = new Account();
+                    EntityManager em = new ConnectionFactory().getConnection();
 
                     System.out.println("\n========= Account Creation Menu =========");
                     System.out.print("Type your name: ");
@@ -42,10 +47,18 @@ public class AccountCreationMenu {
 
                     System.out.print("\nType your CPF: ");
                     String cpf = scanner.nextLine();
+                    if(fieldAlreadyInDatabase(em, "cpf", cpf)) {
+                        System.out.println("\nCPF is already in use!");
+                        continue;
+                    }
                     acc.setCpf(cpf);
 
                     System.out.print("\nType your phone number: ");
                     String phone = scanner.nextLine();
+                    if(fieldAlreadyInDatabase(em, "phone_number", phone)) {
+                        System.out.println("\nPhone number is already in use!");
+                        continue;
+                    }
                     acc.setPhone_number(phone);
 
                     System.out.print("\nType your birth date (yyyy-mm-dd): ");
@@ -62,7 +75,7 @@ public class AccountCreationMenu {
                         }
                     }
 
-                    System.out.println("Enter your account type: ");
+                    System.out.println("\nEnter your account type: ");
                     System.out.println("|| 1. Payments Account                   ||");
                     System.out.println("|| 2. Savings Account                    ||");
                     System.out.println("|| 3. Checking Account                   ||");
@@ -84,6 +97,7 @@ public class AccountCreationMenu {
                 case 0:
                     System.out.println("Exiting...");
                     running = false;
+                    mainMenu();
                     break;
 
                 default:

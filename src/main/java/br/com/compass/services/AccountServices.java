@@ -50,6 +50,12 @@ public class AccountServices {
             em.close();
         }
     }
+
+    public static boolean fieldAlreadyInDatabase(EntityManager em, String field, String value) {
+        String query = String.format("SELECT COUNT(a) FROM Account a WHERE a.%s = :value", field);
+        Long exists = em.createQuery(query, Long.class).setParameter("value", value).getSingleResult();
+        return exists > 0;
+    }
 }
 
 
