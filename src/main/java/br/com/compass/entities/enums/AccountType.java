@@ -1,7 +1,7 @@
 package br.com.compass.entities.enums;
 
 public enum AccountType {
-    SALARY_ACCOUNT(1),
+    PAYMENTS_ACCOUNT(1),
     SAVINGS_ACCOUNT(2),
     CHECKING_ACCOUNT(3);
 

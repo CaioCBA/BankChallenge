@@ -10,7 +10,7 @@ public class MainMenu {
         boolean running = true;
 
         while (running) {
-            System.out.println("========= Main Menu =========");
+            System.out.println("\n========= Main Menu =========");
             System.out.println("|| 1. Login                ||");
             System.out.println("|| 2. Account Opening      ||");
             System.out.println("|| 0. Exit                 ||");
@@ -31,6 +31,7 @@ public class MainMenu {
                     break;
                 default:
                     System.out.println("Invalid option! Please try again.");
+                    break;
             }
         }
         scanner.close();

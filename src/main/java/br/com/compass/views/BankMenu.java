@@ -1,10 +1,13 @@
 package br.com.compass.views;
 
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
+import br.com.compass.entities.models.Transactions;
 import br.com.compass.services.AccountServices;
-import br.com.compass.services.TransferServices;
+import br.com.compass.services.BankStatementServices;
+import br.com.compass.services.MonetaryServices;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 import static br.com.compass.views.MainMenu.mainMenu;
 
@@ -12,7 +15,6 @@ public class BankMenu {
     public static void bankMenu(Account acc, String cpf) {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
-        AccountServices conn = new AccountServices();
 
         System.out.println("\nWelcome, " + acc.getName());
         while (running) {
@@ -32,80 +34,76 @@ public class BankMenu {
             switch (option) {
                 case 1:
                     System.out.print("\nHow much do you want to deposit? R$ ");
-                    int deposit = scanner.nextInt();
+                    double depositAmount = scanner.nextInt();
                     scanner.nextLine();
 
-                    acc.setTotalBalance(acc.getTotalBalance() + deposit);
-                    conn.update(acc);
-
+                    MonetaryServices.deposit(cpf, depositAmount);
                     break;
                 case 2:
+                    Account updateAccountWithdraw = AccountServices.getAccountByCpf(cpf);
+                    assert updateAccountWithdraw != null;
                     boolean hasEnoughBalance = false;
 
                     while(!hasEnoughBalance) {
                         System.out.print("\nHow much do you want to withdraw? R$ ");
-                        int withdraw = scanner.nextInt();
+                        double withdrawAmount = scanner.nextDouble();
                         scanner.nextLine();
 
-                        if (acc.getTotalBalance() < withdraw) {
+                        if (updateAccountWithdraw.getTotalBalance() < withdrawAmount) {
                             System.out.println("\nYou do not have enough money to withdraw!");
-                        } else {
                             hasEnoughBalance = true;
-                            acc.setTotalBalance(acc.getTotalBalance() - withdraw);
+                        } else if (withdrawAmount <= 0) {
+                            System.out.println("\nThe withdraw amount must be greater than zero!");
+
+                            hasEnoughBalance = true;
+                        } else {
+                            boolean operationSuccess = MonetaryServices.withdraw(cpf, withdrawAmount);
+
+                            if (operationSuccess) {
+                                hasEnoughBalance = true;
+                            }
                         }
                     }
-                    conn.update(acc);
-
                     break;
                 case 3:
-                    Account updateAccount = AccountServices.getAccountByCpf(cpf);
-                    assert updateAccount != null : "Account not found";
-                    System.out.println("Your balance is: R$ " + updateAccount.getTotalBalance());
+                    Account updateAccountCheckBalance = AccountServices.getAccountByCpf(cpf);
+                    assert updateAccountCheckBalance != null : "Account not found";
+                    System.out.println("Your balance is: R$ " + updateAccountCheckBalance.getTotalBalance());
 
                     break;
                 case 4:
-                    String cpfTransfer = "";
-                    boolean validCpf = false;
-
-                    while(!validCpf) {
-                        System.out.println("\nType the CPF of who you want to transfer to: ");
-                        cpfTransfer = scanner.nextLine();
-                        if(cpfTransfer.equals(cpf)) {
-                            System.out.println("You can not transfer money to yourself!");
-                        }else {
-                            validCpf = true;
-                        }
-                    }
-
-                    double amount = 0;
+                    Account updateAccountTransfer = AccountServices.getAccountByCpf(cpf);
+                    assert updateAccountTransfer != null : "Account not found";
                     boolean validInput = false;
 
                     while(!validInput) {
-                        System.out.println("\nType the total amount you want to transfer: ");
-                        try {
-                            amount = scanner.nextDouble();
-                            scanner.nextLine();
-                            if(amount <= 0) {
-                                System.out.println("\nThe transfer amount must be greater than zero!");
 
+                        System.out.println("\nType the CPF of who you want to transfer to: ");
+                        String recipientCpf = scanner.nextLine();
 
-                            }else{
+                        System.out.print("\nType the amount you want to transfer: ");
+                        double amount = scanner.nextDouble();
+                        scanner.nextLine();
+
+                        if (amount > updateAccountTransfer.getTotalBalance()) {
+                            System.out.println("You do not have enough money to transfer!");
+                            validInput = true;
+                        }else if(amount <= 0){
+                            System.out.println("\nThe transfer amount must be greater than zero!");
+                            validInput = true;
+                        }else {
+                            boolean success = MonetaryServices.transfer(cpf, recipientCpf, amount);
+
+                            if(success) {
                                 validInput = true;
                             }
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid input!");
-                            scanner.nextLine();
                         }
                     }
-                    TransferServices.transfer(cpf, cpfTransfer, amount);
-
                     break;
                 case 5:
-                    // ToDo...
-                    System.out.println("Bank Statement.");
+                    List<Transactions> transactionsList = BankStatementServices.bankStatement(cpf);
                     break;
                 case 0:
-                    // ToDo...
                     System.out.println("Logging out...");
                     running = false;
                     mainMenu();

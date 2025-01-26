@@ -1,7 +1,7 @@
 package br.com.compass.services;
 
 import br.com.compass.controllers.ConnectionFactory;
-import br.com.compass.entities.Account;
+import br.com.compass.entities.models.Account;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -49,6 +49,12 @@ public class AccountServices {
         }finally {
             em.close();
         }
+    }
+
+    public static boolean fieldAlreadyInDatabase(EntityManager em, String field, String value) {
+        String query = String.format("SELECT COUNT(a) FROM Account a WHERE a.%s = :value", field);
+        Long exists = em.createQuery(query, Long.class).setParameter("value", value).getSingleResult();
+        return exists > 0;
     }
 }
 
