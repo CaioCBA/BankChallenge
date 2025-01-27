@@ -1,14 +1,12 @@
 package br.com.compass.views;
 
 import br.com.compass.entities.models.Account;
-import br.com.compass.entities.models.Transactions;
 import br.com.compass.services.AccountServices;
-import br.com.compass.services.BankStatementServices;
 import br.com.compass.services.MonetaryServices;
 
-import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
+
+import static br.com.compass.services.BankStatementServices.bankStatement;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class BankMenu {
@@ -34,7 +32,7 @@ public class BankMenu {
             switch (option) {
                 case 1:
                     System.out.print("\nHow much do you want to deposit? R$ ");
-                    double depositAmount = scanner.nextInt();
+                    double depositAmount = scanner.nextDouble();
                     scanner.nextLine();
 
                     MonetaryServices.deposit(cpf, depositAmount);
@@ -101,7 +99,7 @@ public class BankMenu {
                     }
                     break;
                 case 5:
-                    List<Transactions> transactionsList = BankStatementServices.bankStatement(cpf);
+                    bankStatement(cpf);
                     break;
                 case 0:
                     System.out.println("Logging out...");
