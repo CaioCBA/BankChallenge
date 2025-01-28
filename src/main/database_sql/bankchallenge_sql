@@ -5,7 +5,7 @@
 -- Dumped from database version 16.4
 -- Dumped by pg_dump version 16.4
 
--- Started on 2025-01-28 12:30:35
+-- Started on 2025-01-28 12:56:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,13 +23,12 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 216 (class 1259 OID 42364)
+-- TOC entry 216 (class 1259 OID 42440)
 -- Name: account; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.account (
     id bigint NOT NULL,
-    account_type integer NOT NULL,
     birth_date date NOT NULL,
     cpf character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
@@ -42,7 +41,7 @@ CREATE TABLE public.account (
 ALTER TABLE public.account OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 42372)
+-- TOC entry 217 (class 1259 OID 42448)
 -- Name: account_account_types; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -55,7 +54,7 @@ CREATE TABLE public.account_account_types (
 ALTER TABLE public.account_account_types OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 42363)
+-- TOC entry 215 (class 1259 OID 42439)
 -- Name: account_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -79,7 +78,7 @@ ALTER SEQUENCE public.account_id_seq OWNED BY public.account.id;
 
 
 --
--- TOC entry 219 (class 1259 OID 42378)
+-- TOC entry 219 (class 1259 OID 42454)
 -- Name: transactions; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -87,8 +86,8 @@ CREATE TABLE public.transactions (
     id bigint NOT NULL,
     account_cpf character varying(255),
     amount double precision NOT NULL,
-    recipient_cpf character varying(255),
     transaction_date timestamp without time zone NOT NULL,
+    recipient_cpf character varying(255),
     transaction_type integer NOT NULL,
     account_id bigint NOT NULL
 );
@@ -97,7 +96,7 @@ CREATE TABLE public.transactions (
 ALTER TABLE public.transactions OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 42377)
+-- TOC entry 218 (class 1259 OID 42453)
 -- Name: transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -121,7 +120,7 @@ ALTER SEQUENCE public.transactions_id_seq OWNED BY public.transactions.id;
 
 
 --
--- TOC entry 4697 (class 2604 OID 42367)
+-- TOC entry 4697 (class 2604 OID 42443)
 -- Name: account id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -129,7 +128,7 @@ ALTER TABLE ONLY public.account ALTER COLUMN id SET DEFAULT nextval('public.acco
 
 
 --
--- TOC entry 4698 (class 2604 OID 42381)
+-- TOC entry 4698 (class 2604 OID 42457)
 -- Name: transactions id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -137,7 +136,7 @@ ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4855 (class 0 OID 42364)
+-- TOC entry 4855 (class 0 OID 42440)
 -- Dependencies: 216
 -- Data for Name: account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -145,7 +144,7 @@ ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4856 (class 0 OID 42372)
+-- TOC entry 4856 (class 0 OID 42448)
 -- Dependencies: 217
 -- Data for Name: account_account_types; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -153,7 +152,7 @@ ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 4858 (class 0 OID 42378)
+-- TOC entry 4858 (class 0 OID 42454)
 -- Dependencies: 219
 -- Data for Name: transactions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -166,7 +165,7 @@ ALTER TABLE ONLY public.transactions ALTER COLUMN id SET DEFAULT nextval('public
 -- Name: account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.account_id_seq', 1, false);
+SELECT pg_catalog.setval('public.account_id_seq', 1, true);
 
 
 --
@@ -175,11 +174,11 @@ SELECT pg_catalog.setval('public.account_id_seq', 1, false);
 -- Name: transactions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.transactions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.transactions_id_seq', 1, true);
 
 
 --
--- TOC entry 4706 (class 2606 OID 42376)
+-- TOC entry 4706 (class 2606 OID 42452)
 -- Name: account_account_types account_account_types_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -188,7 +187,7 @@ ALTER TABLE ONLY public.account_account_types
 
 
 --
--- TOC entry 4700 (class 2606 OID 42371)
+-- TOC entry 4700 (class 2606 OID 42447)
 -- Name: account account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -197,7 +196,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- TOC entry 4708 (class 2606 OID 42385)
+-- TOC entry 4708 (class 2606 OID 42461)
 -- Name: transactions transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -206,7 +205,7 @@ ALTER TABLE ONLY public.transactions
 
 
 --
--- TOC entry 4702 (class 2606 OID 42387)
+-- TOC entry 4702 (class 2606 OID 42463)
 -- Name: account uk_2mnfv555f1ytxaml43euhfnxc; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -215,7 +214,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- TOC entry 4704 (class 2606 OID 42389)
+-- TOC entry 4704 (class 2606 OID 42465)
 -- Name: account uk_ic17dv8l4rx597s67cwfmliyd; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -224,7 +223,7 @@ ALTER TABLE ONLY public.account
 
 
 --
--- TOC entry 4709 (class 2606 OID 42390)
+-- TOC entry 4709 (class 2606 OID 42466)
 -- Name: account_account_types fkah3d2dj8hk2b2yndw0bx38yx7; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -233,7 +232,7 @@ ALTER TABLE ONLY public.account_account_types
 
 
 --
--- TOC entry 4710 (class 2606 OID 42395)
+-- TOC entry 4710 (class 2606 OID 42471)
 -- Name: transactions fkg1b51bjknl06ai6x5oqbjwgv2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -241,7 +240,7 @@ ALTER TABLE ONLY public.transactions
     ADD CONSTRAINT fkg1b51bjknl06ai6x5oqbjwgv2 FOREIGN KEY (account_id) REFERENCES public.account(id);
 
 
--- Completed on 2025-01-28 12:30:36
+-- Completed on 2025-01-28 12:56:14
 
 --
 -- PostgreSQL database dump complete

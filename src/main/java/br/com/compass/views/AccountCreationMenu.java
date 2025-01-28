@@ -17,28 +17,28 @@ import static br.com.compass.services.AccountServices.fieldAlreadyInDatabase;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class AccountCreationMenu {
+
     public static void accountCreationMenu() {
         Scanner scanner = new Scanner(System.in);
+        Account acc = new Account();
+        AccountServices conn = new AccountServices();
+        EntityManager em = new ConnectionFactory().getConnection();
+
         boolean running = true;
 
         while (running) {
-            System.out.println("\n========= Account Creation Menu =========");
-            System.out.println("|| 1. Open Account                       ||");
-            System.out.println("|| 0. Go back                            ||");
-            System.out.println("========================================== ");
+            System.out.println("========= Account Creation Menu =========");
+            System.out.println("|| 1. Open Account                      ||");
+            System.out.println("|| 0. Go back                           ||");
+            System.out.println("=========================================");
             System.out.print("Choose an option: ");
 
             int op = scanner.nextInt();
             scanner.nextLine();
 
             switch (op) {
-
                 case 1:
-                    AccountServices conn = new AccountServices();
-                    Account acc = new Account();
-                    EntityManager em = new ConnectionFactory().getConnection();
-
-                    System.out.println("\n========= Account Creation Menu =========");
+                    System.out.println("========= Account Creation Menu =========");
                     System.out.print("Type your name: ");
                     String name = scanner.nextLine();
                     acc.setName(name);
@@ -49,7 +49,7 @@ public class AccountCreationMenu {
 
                     System.out.print("\nType your CPF: ");
                     String cpf = scanner.nextLine();
-                    if(fieldAlreadyInDatabase(em, "cpf", cpf)) {
+                    if(fieldAlreadyInDatabase(em, "cpf", cpf)){
                         System.out.println("\nCPF is already in use!");
                         continue;
                     }
@@ -57,7 +57,7 @@ public class AccountCreationMenu {
 
                     System.out.print("\nType your phone number: ");
                     String phone = scanner.nextLine();
-                    if(fieldAlreadyInDatabase(em, "phone_number", phone)) {
+                    if(fieldAlreadyInDatabase(em, "phone_number", phone)){
                         System.out.println("\nPhone number is already in use!");
                         continue;
                     }
@@ -77,12 +77,15 @@ public class AccountCreationMenu {
                         }
                     }
 
-                    System.out.println("\nEnter your account type: ");
+                    System.out.println("\nEnter your account types: ");
+
                     System.out.println("|| 1. Payments Account                   ||");
                     System.out.println("|| 2. Savings Account                    ||");
                     System.out.println("|| 3. Checking Account                   ||");
                     String[] accountInput = scanner.nextLine().split(",");
                     Set<AccountType> accountTypes = new HashSet<>();
+
+
 
                     for(String type : accountInput){
                         switch (type.trim()) {
@@ -102,22 +105,22 @@ public class AccountCreationMenu {
                     }
 
                     acc.setAccountTypes(accountTypes);
+
                     conn.saveAccount(acc);
-                    System.out.println("\nAccount created successfully!");
                     mainMenu();
                     break;
+
 
                 case 0:
                     System.out.println("Exiting...");
                     running = false;
                     mainMenu();
-                    break;
 
                 default:
                     System.out.println("Invalid option! Please try again.");
-                    break;
+
             }
         }
-        scanner.close();
     }
+
 }

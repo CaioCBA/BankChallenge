@@ -17,14 +17,14 @@ public class Transactions implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
 
     @Column(name = "transaction_type", nullable = false)
     private Integer transactionType;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name="amount", nullable = false)
     private Double amount;
 
     @Column(name = "account_cpf")
@@ -34,9 +34,10 @@ public class Transactions implements Serializable {
     private String recipientCpf;
 
     @Column(name = "transaction_date", nullable = false)
-    private LocalDateTime transactionDate;
+    private LocalDateTime date;
 
-    public Transactions() {}
+    public Transactions() {
+    }
 
     public Transactions(Account account, Integer transactionType, Double amount, String accountCpf, String recipientCpf) {
         this.account = account;
@@ -44,7 +45,15 @@ public class Transactions implements Serializable {
         this.amount = amount;
         this.accountCpf = accountCpf;
         this.recipientCpf = recipientCpf;
-        this.transactionDate = LocalDateTime.now();
+        this.date = LocalDateTime.now();
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account acc) {
+        this.account = acc;
     }
 
     public Long getId() {
@@ -53,14 +62,6 @@ public class Transactions implements Serializable {
 
     protected void setId(Long id) {
         this.id = id;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public TransactionType getTransactionType() {
@@ -81,26 +82,32 @@ public class Transactions implements Serializable {
         this.amount = amount;
     }
 
-    public java.lang.String getAccountCpf() {
+    public String getRecipientCpf() {
+        return recipientCpf;
+    }
+
+    public String getAccountCpf() {
         return accountCpf;
     }
 
-    public void setAccountCpf(java.lang.String senderCpf) {}
-
-    public String getRecipientCpf() {
-        return recipientCpf;
+    public void setAccountCpf(String accountCpf) {
+        this.accountCpf = accountCpf;
     }
 
     public void setRecipientCpf(String recipientCpf) {
         this.recipientCpf = recipientCpf;
     }
 
-    public LocalDateTime getTransactionDate() {
-        return transactionDate;
+    public void setOwnerCpf(String recipientCpf) {
+        this.recipientCpf = recipientCpf;
     }
 
-    public void setTransactionDate(LocalDateTime transactionDate) {
-        this.transactionDate = transactionDate;
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     @Override

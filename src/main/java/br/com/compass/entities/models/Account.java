@@ -2,6 +2,7 @@ package br.com.compass.entities.models;
 
 import br.com.compass.entities.enums.AccountType;
 import javax.persistence.*;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -31,9 +32,6 @@ public class Account implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "account_type", nullable = false)
-    private Integer accountType;
-
     @Column(name = "total_balance")
     private Double totalBalance = 0.0;
 
@@ -46,7 +44,8 @@ public class Account implements Serializable {
     @Column(name = "account_types", nullable = false)
     private Set<AccountType> accountTypes = new HashSet<>();
 
-    public Account() {}
+    public Account() {
+    }
 
     public Long getId() {
         return id;
@@ -88,13 +87,21 @@ public class Account implements Serializable {
         this.phone_number = phone;
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public Double getTotalBalance() { return totalBalance; }
+    public Double getTotalBalance() {
+        return totalBalance;
+    }
 
-    public void setTotalBalance(Double totalBalance) { this.totalBalance = totalBalance; }
+    public void setTotalBalance(Double totalBalance) {
+        this.totalBalance = totalBalance;
+    }
 
     public List<Transactions> getTransactions() {
         return transactions;
@@ -104,15 +111,6 @@ public class Account implements Serializable {
         this.transactions = transactions;
     }
 
-    public AccountType getAccountType() {
-        return AccountType.valueOf(accountType);
-    }
-
-    public void setAccountType(AccountType accountType) {
-        if (accountType != null) {
-            this.accountType = accountType.getCode();
-        }
-    }
 
     public Set<AccountType> getAccountTypes() {
         return accountTypes;
@@ -133,6 +131,4 @@ public class Account implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
-
 }

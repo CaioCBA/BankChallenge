@@ -20,6 +20,7 @@ public class AccountServices {
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
+            throw e;
         } finally {
             em.close();
         }
