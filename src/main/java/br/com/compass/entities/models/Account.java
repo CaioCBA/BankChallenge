@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -36,6 +38,9 @@ public class Account implements Serializable {
 
     @Column(name = "total_balance")
     private Double totalBalance = 0.0;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transactions> transactions = new ArrayList<>();
 
     public Account() {}
 
@@ -87,6 +92,14 @@ public class Account implements Serializable {
 
     public void setTotalBalance(Double totalBalance) { this.totalBalance = totalBalance; }
 
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
+    }
+
     public AccountType getAccountType() {
         return AccountType.valueOf(accountType);
     }
@@ -108,5 +121,6 @@ public class Account implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 
 }

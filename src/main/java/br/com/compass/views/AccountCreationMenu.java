@@ -21,9 +21,9 @@ public class AccountCreationMenu {
 
         while (running) {
             System.out.println("\n========= Account Creation Menu =========");
-            System.out.println("|| 1. Open Account                      ||");
-            System.out.println("|| 0. Go back                           ||");
-            System.out.println("=========================================");
+            System.out.println("|| 1. Open Account                       ||");
+            System.out.println("|| 0. Go back                            ||");
+            System.out.println("========================================== ");
             System.out.print("Choose an option: ");
 
             int op = scanner.nextInt();
@@ -90,7 +90,7 @@ public class AccountCreationMenu {
                         acc.setAccountType(AccountType.CHECKING_ACCOUNT);
                     }
 
-                    conn.save(acc);
+                    conn.saveAccount(acc);
                     mainMenu();
                     break;
 

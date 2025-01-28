@@ -7,6 +7,7 @@ import br.com.compass.services.MonetaryServices;
 import java.util.Scanner;
 
 import static br.com.compass.services.BankStatementServices.bankStatement;
+import static br.com.compass.views.AccountDeleteMenu.accountDeleteMenu;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class BankMenu {
@@ -22,6 +23,7 @@ public class BankMenu {
             System.out.println("|| 3. Check Balance        ||");
             System.out.println("|| 4. Transfer             ||");
             System.out.println("|| 5. Bank Statement       ||");
+            System.out.println("|| 6. Delete account       ||");
             System.out.println("|| 0. Exit                 ||");
             System.out.println("=============================");
             System.out.print("Choose an option: ");
@@ -66,7 +68,7 @@ public class BankMenu {
                 case 3:
                     Account updateAccountCheckBalance = AccountServices.getAccountByCpf(cpf);
                     assert updateAccountCheckBalance != null : "Account not found";
-                    System.out.println("Your balance is: R$ " + updateAccountCheckBalance.getTotalBalance());
+                    System.out.printf("Your balance is: R$ %.2f", updateAccountCheckBalance.getTotalBalance());
 
                     break;
                 case 4:
@@ -105,6 +107,9 @@ public class BankMenu {
                     System.out.println("Logging out...");
                     running = false;
                     mainMenu();
+                    break;
+                case 6:
+                    accountDeleteMenu(acc, cpf);
                     break;
                 default:
                     System.out.println("Invalid option! Please try again.");
