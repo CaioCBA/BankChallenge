@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import static br.com.compass.services.AccountServices.fieldAlreadyInDatabase;
 import static br.com.compass.views.MainMenu.mainMenu;
@@ -79,16 +81,27 @@ public class AccountCreationMenu {
                     System.out.println("|| 1. Payments Account                   ||");
                     System.out.println("|| 2. Savings Account                    ||");
                     System.out.println("|| 3. Checking Account                   ||");
-                    int op_tc = scanner.nextInt();
-                    scanner.nextLine();
+                    String[] accountInput = scanner.nextLine().split(",");
+                    Set<AccountType> accountTypes = new HashSet<>();
 
-                    if (op_tc == 1) {
-                        acc.setAccountType(AccountType.PAYMENTS_ACCOUNT);
-                    } else if (op_tc == 2) {
-                        acc.setAccountType(AccountType.SAVINGS_ACCOUNT);
-                    } else if (op_tc == 3) {
-                        acc.setAccountType(AccountType.CHECKING_ACCOUNT);
+                    for(String type : accountInput){
+                        switch (type.trim()) {
+                            case "1":
+                                accountTypes.add(AccountType.PAYMENTS_ACCOUNT);
+                                break;
+                            case "2":
+                                accountTypes.add(AccountType.SAVINGS_ACCOUNT);
+                                break;
+                            case "3":
+                                accountTypes.add(AccountType.CHECKING_ACCOUNT);
+                                break;
+                            default:
+                                System.out.println("Invalid account type.");
+                                break;
+                        }
                     }
+
+                    acc.setAccountTypes(accountTypes);
 
                     conn.saveAccount(acc);
                     mainMenu();

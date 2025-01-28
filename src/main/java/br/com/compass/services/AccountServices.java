@@ -25,6 +25,22 @@ public class AccountServices {
         }
     }
 
+    public void updateAccount(Account acc) {
+
+        EntityManager em = new ConnectionFactory().getConnection();
+
+        try {
+            em.getTransaction().begin();
+            em.merge(acc);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
+
     public static void deleteAccount(Account acc) {
         EntityManager em = new ConnectionFactory().getConnection();
 

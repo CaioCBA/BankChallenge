@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import static br.com.compass.services.BankStatementServices.bankStatement;
 import static br.com.compass.views.AccountDeleteMenu.accountDeleteMenu;
+import static br.com.compass.views.AddAnotherAccountMenu.addAnotherAccountMenu;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class BankMenu {
@@ -23,7 +24,8 @@ public class BankMenu {
             System.out.println("|| 3. Check Balance        ||");
             System.out.println("|| 4. Transfer             ||");
             System.out.println("|| 5. Bank Statement       ||");
-            System.out.println("|| 6. Delete account       ||");
+            System.out.println("|| 6. Add another account  ||");
+            System.out.println("|| 7. Delete account       ||");
             System.out.println("|| 0. Exit                 ||");
             System.out.println("=============================");
             System.out.print("Choose an option: ");
@@ -103,13 +105,16 @@ public class BankMenu {
                 case 5:
                     bankStatement(cpf);
                     break;
+                case 6:
+                    addAnotherAccountMenu(acc, cpf);
+                    break;
+                case 7:
+                    accountDeleteMenu(acc, cpf);
+                    break;
                 case 0:
                     System.out.println("Logging out...");
                     running = false;
                     mainMenu();
-                    break;
-                case 6:
-                    accountDeleteMenu(acc, cpf);
                     break;
                 default:
                     System.out.println("Invalid option! Please try again.");

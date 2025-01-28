@@ -9,9 +9,7 @@ import static br.com.compass.views.BankMenu.bankMenu;
 import static br.com.compass.views.MainMenu.mainMenu;
 
 public class AccountDeleteMenu {
-
     public static void accountDeleteMenu(Account acc, String cpf){
-
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n======= Delete account =======");
@@ -32,6 +30,5 @@ public class AccountDeleteMenu {
                 bankMenu(acc, cpf);
                 break;
         }
-
     }
 }
