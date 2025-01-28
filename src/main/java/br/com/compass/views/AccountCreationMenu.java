@@ -102,8 +102,8 @@ public class AccountCreationMenu {
                     }
 
                     acc.setAccountTypes(accountTypes);
-
                     conn.saveAccount(acc);
+                    System.out.println("\nAccount created successfully!");
                     mainMenu();
                     break;
 
