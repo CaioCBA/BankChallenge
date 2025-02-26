@@ -38,30 +38,68 @@ public class AccountCreationMenu {
 
             switch (op) {
                 case 1:
+                    boolean validatePassword = true;
+                    boolean validateCpf = true;
+                    boolean validatePhone = true;
+
                     System.out.println("========= Account Creation Menu =========");
                     System.out.print("Type your name: ");
                     String name = scanner.nextLine();
                     acc.setName(name);
 
-                    System.out.print("\nType your password: ");
-                    String password = scanner.nextLine();
-                    acc.setPassword(password);
-
-                    System.out.print("\nType your CPF: ");
-                    String cpf = scanner.nextLine();
-                    if(fieldAlreadyInDatabase(em, "cpf", cpf)){
-                        System.out.println("\nCPF is already in use!");
-                        continue;
+                    while(validatePassword) {
+                        System.out.print("\nType your password: ");
+                        String password = scanner.nextLine();
+                        if(password.length() < 8) {
+                            System.out.println("Password must be at least 8 characters!");
+                            continue;
+                        }if(!password.matches(".*[!@#$%^&*].*")) {
+                            System.out.println("Password must have at least one special character!");
+                            continue;
+                        }
+                        if(password.toLowerCase().contains(acc.getName().toLowerCase())) {
+                            System.out.println("Name cannot be in password!");
+                            continue;
+                        }
+                        acc.setPassword(password);
+                        validatePassword = false;
                     }
-                    acc.setCpf(cpf);
 
-                    System.out.print("\nType your phone number: ");
-                    String phone = scanner.nextLine();
-                    if(fieldAlreadyInDatabase(em, "phone_number", phone)){
-                        System.out.println("\nPhone number is already in use!");
-                        continue;
+                    while(validateCpf) {
+                        System.out.print("\nType your CPF: ");
+                        String cpf = scanner.nextLine();
+
+                        if(cpf.length() != 11) {
+                            System.out.println("CPF must be 11 digits!");
+                            continue;
+                        }
+                        if(fieldAlreadyInDatabase(em, "cpf", cpf)){
+                            System.out.println("\nCPF is already in use!");
+                            continue;
+                        }
+                        acc.setCpf(cpf);
+                        validateCpf = false;
                     }
-                    acc.setPhone_number(phone);
+
+                    while(validatePhone) {
+                        System.out.print("\nType your phone number: ");
+                        String phone = scanner.nextLine();
+
+                        if(phone.length() < 10 || phone.length() > 11) {
+                            System.out.println("Must be a valid phone number!");
+                            continue;
+                        }
+                        if(!phone.matches("\\d+")){
+                            System.out.println("Phone number must be a number!");
+                            continue;
+                        }
+                        if(fieldAlreadyInDatabase(em, "phone_number", phone)){
+                            System.out.println("\nPhone number is already in use!");
+                            continue;
+                        }
+                        acc.setPhone_number(phone);
+                        validatePhone = false;
+                    }
 
                     System.out.print("\nType your birth date (yyyy-mm-dd): ");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
